@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marvelverso: El Portal del Multiverso</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#0b1026,#8b0000);color:white;text-align:center}
+section{display:none;padding:20px;min-height:100vh}
+#menu{display:block}
+.card{background:rgba(255,255,255,.1);margin:15px auto;padding:20px;border-radius:15px;max-width:800px}
+button{padding:12px 20px;border:none;border-radius:10px;cursor:pointer;font-weight:bold;margin:8px}
+.menu-btn{width:280px;font-size:18px}
+img{max-width:250px;border-radius:12px}
+.snap{animation:fade 2s forwards}
+@keyframes fade{from{opacity:1}to{opacity:0}}
+</style>
+</head>
+<body>
+
+<section id="menu">
+<h1>🦸 Marvelverso: El Portal del Multiverso 🦸</h1>
+<div class="card">
+<button class="menu-btn" onclick="show('quiz')">Quiz de Personalidad</button><br>
+<button class="menu-btn" onclick="show('datos')">¿Sabías que?</button><br>
+<button class="menu-btn" onclick="show('blip')">¿Sobreviviste al Chasquido de Thanos?</button>
+</div>
+</section>
+
+<section id="quiz">
+<h2>Quiz de Personalidad</h2>
+
+<div class="card">
+<p>1. ¿Qué valoras más?</p>
+<select id="q1">
+<option value="hero">Ayudar</option>
+<option value="villain">Poder</option>
+<option value="smart">Conocimiento</option>
+</select>
+
+<p>2. En una crisis tú...</p>
+<select id="q2">
+<option value="hero">Proteges a todos</option>
+<option value="villain">Piensas en ganar</option>
+<option value="smart">Planeas</option>
+</select>
+
+<p>3. Tu mayor cualidad:</p>
+<select id="q3">
+<option value="hero">Valentía</option>
+<option value="villain">Determinación</option>
+<option value="smart">Inteligencia</option>
+</select>
+
+<p>4. ¿Qué prefieres?</p>
+<select id="q4">
+<option value="hero">Justicia</option>
+<option value="villain">Control</option>
+<option value="smart">Descubrimientos</option>
+</select>
+
+<p>5. Tu frase favorita:</p>
+<select id="q5">
+<option value="hero">Nunca me rindo</option>
+<option value="villain">El fin justifica los medios</option>
+<option value="smart">Siempre hay una solución</option>
+</select>
+
+<br><button onclick="resultado()">Revelar Personaje</button>
+<div id="resultado"></div>
+<br><button onclick="show('menu')">Menú</button>
+</div>
+</section>
+
+<section id="datos">
+<h2>¿Sabías que?</h2>
+<div class="card">
+<p>🕷️ Spider-Man casi fue rechazado porque pensaban que nadie quería héroes con poderes de araña.</p>
+<p>🦸 Iron Man fue creado en 1963 por Stan Lee.</p>
+<p>🟣 Thanos está inspirado parcialmente en el villano Darkseid de DC.</p>
+<p>🧤 En los cómics, el chasquido original fue para impresionar a la Muerte.</p>
+<p>⚡ Wolverine debutó en un cómic de Hulk antes de unirse a los X-Men.</p>
+<button onclick="show('menu')">Menú</button>
+</div>
+</section>
+
+<section id="blip">
+<h2>¿Sobreviviste al Chasquido de Thanos?</h2>
+<div class="card" id="snapArea">
+<button onclick="blip()">Descubrir mi destino</button>
+<div id="blipResultado"></div>
+</div>
+<button onclick="show('menu')">Menú</button>
+</section>
+
+<script>
+function show(id){
+document.querySelectorAll("section").forEach(s=>s.style.display="none");
+document.getElementById(id).style.display="block";
+}
+
+function resultado(){
+let hero=0,villain=0,smart=0;
+for(let i=1;i<=5;i++){
+let v=document.getElementById("q"+i).value;
+if(v==="hero") hero++;
+if(v==="villain") villain++;
+if(v==="smart") smart++;
+}
+let r=document.getElementById("resultado");
+
+if(hero>=villain && hero>=smart){
+r.innerHTML=`<h3>¡Eres Capitán América!</h3>
+<img src="https://upload.wikimedia.org/wikipedia/en/9/91/CaptainAmerica109.jpg">
+<p>Eres valiente, leal y siempre buscas hacer lo correcto.</p>`;
+}else if(villain>=hero && villain>=smart){
+r.innerHTML=`<h3>¡Eres Thanos!</h3>
+<img src="https://upload.wikimedia.org/wikipedia/en/7/7b/Thanos.png">
+<p>Eres decidido y haces lo necesario para lograr tus objetivos.</p>`;
+}else{
+r.innerHTML=`<h3>¡Eres Iron Man!</h3>
+<img src="https://upload.wikimedia.org/wikipedia/en/e/e0/Iron_Man_bleeding_edge.jpg">
+<p>Tu inteligencia y creatividad son tus mayores armas.</p>`;
+}
+}
+
+function blip(){
+let area=document.getElementById("snapArea");
+area.classList.add("snap");
+setTimeout(()=>{
+area.classList.remove("snap");
+let vive=Math.random()<0.5;
+document.getElementById("blipResultado").innerHTML=vive?
+"<h3>🎉 Felicidades, sobreviviste al Blip</h3>":
+"<h3>💨 Lo sentimos, fuiste desintegrado. Vuelve a intentar en 5 años.</h3>";
+},2000);
+}
+</script>
+</body>
+</html>
